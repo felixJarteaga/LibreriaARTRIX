@@ -1,18 +1,20 @@
-package controlador;
+package control;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
+
+import java.util.HashMap;
 
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
+
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import modelo.Estanteria;
 import modelo.Libro;
-import utilies.Validaciones;
+
+import utiles.Validaciones;
 import vista.UI;
 
 public class ParaUI extends UI {
@@ -27,22 +29,21 @@ public class ParaUI extends UI {
 						&& Validaciones.validarLetras(textFieldAutor.getText())
 						&& Validaciones.validarLetras(textFieldEditorial.getText())
 						&& Validaciones.isNumeroFloat(textFieldPrecio.getText())) {
-					if (libreria.obtenerLibro(textFieldISBN.getText())==null) {
-						libreria.guardar(new Libro(textFieldISBN.getText(), textFieldTitulo.getText(), textFieldAutor.getText(),
-								textFieldEditorial.getText(), Float.valueOf(textFieldPrecio.getText())));
+					if (libreria.obtenerLibro(textFieldISBN.getText()) == null) {
+						libreria.guardar(
+								new Libro(textFieldISBN.getText(), textFieldTitulo.getText(), textFieldAutor.getText(),
+										textFieldEditorial.getText(),Integer.valueOf(textFieldCantidad.getText()), Float.valueOf(textFieldPrecio.getText())));
 						rellenarTabla();
 						JOptionPane.showMessageDialog(null, "Libro guardado");
 						vaciarCampos();
-					}else {
+					} else {
 						JOptionPane.showMessageDialog(null, "ISBN existente");
 					}
 
-
-				}else {
+				} else {
 					JOptionPane.showMessageDialog(null, "Campos erroneos");
 				}
 
-				
 			}
 
 		});
@@ -80,28 +81,22 @@ public class ParaUI extends UI {
 
 	}
 
-//	private void mostrarCampos(Libro libro) {
-//		textFieldISBN.setText(libro.getISBN());
-//		textFieldTitulo.setText(libro.getTitulo());
-//		textFieldAutor.setText(libro.getAutor());
-//		textFieldEditorial.setText(libro.getEditorial());
-//		textFieldPrecio.setText(String.valueOf(libro.getPrecio()));
-//	}
-//	
 	public void rellenarTabla() {
-		ArrayList<Libro> arrayLibro = libreria.getArrayLibro();
-		String nombreColumnas[] = { "ISBN", "Titulo", "Editorial", "Autor", "Precio" };
-		String[][] filasTabla = new String[arrayLibro.size()][nombreColumnas.length];
-		for (int i = 0; i < arrayLibro.size(); i++) {
-			filasTabla[i][0] = arrayLibro.get(i).getISBN();
-			filasTabla[i][1] = arrayLibro.get(i).getTitulo();
-			filasTabla[i][2] = arrayLibro.get(i).getAutor();
-			filasTabla[i][3] = arrayLibro.get(i).getEditorial();
-			filasTabla[i][4] = String.valueOf(arrayLibro.get(i).getPrecio());
+		HashMap<String, Libro> hashMapLibro = libreria.getHashMapLibro();
+		String nombresColumnas[] = { "ISBN", "TITULO", "AUTOR","CANTIDAD", "PRECIO" };
+		String[][] filasTabla = new String[hashMapLibro.size()][nombresColumnas.length];
+		for (int i = 0; i < hashMapLibro.size(); i++) {
+			Libro libro = libreria.getLibro(i);
+			filasTabla[i][0] = libro.getISBN();
+			filasTabla[i][1] = libro.getTitulo();
+			filasTabla[i][2] = libro.getAutor();
+			filasTabla[i][3]=String.valueOf(libro.getCantidad());
+			filasTabla[i][4] = String.valueOf(libro.getPrecio());
+
 		}
-		DefaultTableModel tablaCompleta = new DefaultTableModel(filasTabla, nombreColumnas);
+		DefaultTableModel tablaCompleta = new DefaultTableModel(filasTabla, nombresColumnas);
 		tablaLibros.setModel(tablaCompleta);
-		DefaultTableCellRenderer alinear= new DefaultTableCellRenderer();
+		DefaultTableCellRenderer alinear = new DefaultTableCellRenderer();
 		alinear.setHorizontalAlignment(SwingConstants.CENTER);
 		for (int i = 0; i < tablaLibros.getColumnCount(); i++) {
 			tablaLibros.getColumnModel().getColumn(i).setCellRenderer(alinear);

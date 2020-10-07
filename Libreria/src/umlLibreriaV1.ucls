@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <class-diagram version="1.2.4" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
   associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
-  <class id="1" language="java" name="controlador.ParaUI" project="Libreria" 
-    file="/Libreria/src/controlador/ParaUI.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="792" y="158"/>    
+  <class id="1" language="java" name="control.ParaUI" project="Libreria" file="/Libreria/src/control/ParaUI.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="904" y="59"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="2" language="java" name="controlador.Principal" project="Libreria" 
-    file="/Libreria/src/controlador/Principal.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="436" y="326"/>    
+  <class id="2" language="java" name="control.Principal" project="Libreria" file="/Libreria/src/control/Principal.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="358" y="372"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -21,7 +21,7 @@
   </class>  
   <class id="3" language="java" name="modelo.Estanteria" project="Libreria" file="/Libreria/src/modelo/Estanteria.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="419" y="160"/>    
+    <position height="-1" width="-1" x="422" y="115"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -37,9 +37,9 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="5" language="java" name="utilies.Validaciones" project="Libreria" 
-    file="/Libreria/src/utilies/Validaciones.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="432" y="511"/>    
+  <class id="5" language="java" name="utiles.Validaciones" project="Libreria" 
+    file="/Libreria/src/utiles/Validaciones.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="111" y="398"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -48,33 +48,29 @@
   </class>  
   <class id="6" language="java" name="vista.UI" project="Libreria" file="/Libreria/src/vista/UI.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="798" y="468"/>    
+    <position height="-1" width="-1" x="708" y="320"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <generalization id="7">    
-    <end type="SOURCE" refId="1"/>    
-    <end type="TARGET" refId="6"/>  
-  </generalization>  
-  <association id="8">    
+  <association id="7">    
     <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="9" name="libreria"/>      
-      <multiplicity id="10" minimum="0" maximum="1"/>    
+      <attribute id="8" name="libreria">        
+        <position height="0" width="0" x="3" y="-45"/>      
+      </attribute>      
+      <multiplicity id="9" minimum="0" maximum="1">        
+        <position height="0" width="0" x="3" y="-45"/>      
+      </multiplicity>    
     </end>    
     <end type="TARGET" refId="3" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="11">    
-    <end type="SOURCE" refId="3" navigable="false">      
-      <attribute id="12" name="arrayLibro"/>      
-      <multiplicity id="13" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="4" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
+  <generalization id="10">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="6"/>  
+  </generalization>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     sort-features="false" accessors="true" visibility="true">    
     <attributes public="true" package="true" protected="true" private="true" static="true"/>    

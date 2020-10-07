@@ -32,7 +32,9 @@ public class UI extends JFrame {
 	protected JTextField textFieldTitulo;
 	protected JTextField textFieldAutor;
 	protected JTextField textFieldEditorial;
+	protected JTextField textFieldCantidad;
 	protected JTextField textFieldPrecio;
+	
 	protected JTable tablaLibros;
 	protected JButton btnGuardar;
 	protected JButton btnBorrar;
@@ -45,6 +47,7 @@ public class UI extends JFrame {
 	private JRadioButton rdbtnReedicion;
 	private JRadioButton rdbtnNovedad;
 	private ButtonGroup grupoFormato= new ButtonGroup();
+	
 
 	public UI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -107,6 +110,11 @@ public class UI extends JFrame {
 		JPanel panelEstado = new JPanel();
 		panelEstado.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
 		panelEstado.setBackground(new Color(240, 230, 140));
+		
+		JLabel lblCantidad = new JLabel("Cantidad");
+		
+		textFieldCantidad = new JTextField();
+		textFieldCantidad.setColumns(10);
 		GroupLayout gl_Libro = new GroupLayout(Libro);
 		gl_Libro.setHorizontalGroup(
 			gl_Libro.createParallelGroup(Alignment.LEADING)
@@ -119,23 +127,29 @@ public class UI extends JFrame {
 						.addGroup(gl_Libro.createParallelGroup(Alignment.TRAILING, false)
 							.addComponent(lblPrecio, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 							.addComponent(lblAutor, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-							.addComponent(lblEditorial, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+							.addComponent(lblEditorial, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addComponent(lblCantidad)))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_Libro.createParallelGroup(Alignment.LEADING)
-						.addComponent(textFieldPrecio, GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
-						.addComponent(textFieldAutor, GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
-						.addComponent(textFieldEditorial, GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
-						.addComponent(textFieldTitulo, GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
 						.addGroup(gl_Libro.createSequentialGroup()
-							.addComponent(textFieldISBN, GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
-							.addPreferredGap(ComponentPlacement.UNRELATED)))
-					.addGap(10)
+							.addGroup(gl_Libro.createParallelGroup(Alignment.LEADING)
+								.addComponent(textFieldPrecio, GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
+								.addComponent(textFieldAutor, GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
+								.addComponent(textFieldEditorial, GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
+								.addComponent(textFieldTitulo, GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
+								.addGroup(gl_Libro.createSequentialGroup()
+									.addComponent(textFieldISBN, GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
+									.addPreferredGap(ComponentPlacement.UNRELATED)))
+							.addGap(10))
+						.addGroup(gl_Libro.createSequentialGroup()
+							.addComponent(textFieldCantidad, GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+							.addGap(137)))
 					.addComponent(lblImgenLibro)
 					.addGap(36))
 				.addGroup(gl_Libro.createSequentialGroup()
 					.addGroup(gl_Libro.createParallelGroup(Alignment.TRAILING)
-						.addComponent(panelEstado, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 563, Short.MAX_VALUE)
-						.addComponent(panelFormato, GroupLayout.DEFAULT_SIZE, 563, Short.MAX_VALUE))
+						.addComponent(panelEstado, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 493, Short.MAX_VALUE)
+						.addComponent(panelFormato, GroupLayout.DEFAULT_SIZE, 493, Short.MAX_VALUE))
 					.addContainerGap())
 		);
 		gl_Libro.setVerticalGroup(
@@ -159,7 +173,11 @@ public class UI extends JFrame {
 							.addGroup(gl_Libro.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblEditorial)
 								.addComponent(textFieldEditorial, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addGap(32)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addGroup(gl_Libro.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblCantidad)
+								.addComponent(textFieldCantidad, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addGap(7)
 							.addGroup(gl_Libro.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblPrecio)
 								.addComponent(textFieldPrecio, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
@@ -168,7 +186,7 @@ public class UI extends JFrame {
 					.addComponent(panelFormato, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(panelEstado, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+					.addContainerGap(15, Short.MAX_VALUE))
 		);
 		
 		JLabel lblEstado = new JLabel("Estado:");
@@ -307,6 +325,7 @@ public class UI extends JFrame {
 		textFieldTitulo.setText("");
 		textFieldAutor.setText("");
 		textFieldEditorial.setText("");
+		textFieldCantidad.setText("");
 		textFieldPrecio.setText("");
 
 	}
