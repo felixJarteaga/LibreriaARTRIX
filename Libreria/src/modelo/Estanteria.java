@@ -33,10 +33,11 @@ public class Estanteria {
 		String ISBN = ISBNconcreto(index);
 		return obtenerLibro(ISBN);
 	}
-	private String ISBNconcreto(int index) {
+	public String ISBNconcreto(int index) {
 		Set<String> grupo = this.hashMapLibros.keySet();
 		Object [] array = grupo.toArray();
 		String ISBN=(String) array[index];
+	
 		return ISBN;
 	}
 

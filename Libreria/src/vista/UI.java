@@ -25,6 +25,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JRadioButton;
 import javax.swing.border.LineBorder;
+
+import modelo.Libro;
+
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 public class UI extends JFrame {
 
 	private JPanel contentPane;
@@ -40,18 +45,26 @@ public class UI extends JFrame {
 	protected JButton btnBorrar;
 	protected JButton btnConsultar;
 	protected JButton btnSalir;
-	private JRadioButton rdbtnCartone;
+	protected JButton btnAddUnidad;
+	protected JButton btnModificar;
+
+	
+	protected JRadioButton rdbtnCartone;
 	private JRadioButton rdbtnRustica;
 	private JRadioButton rdbtnGrapada;
 	private JRadioButton rdbtnEspiral;
 	private JRadioButton rdbtnReedicion;
 	private JRadioButton rdbtnNovedad;
-	private ButtonGroup grupoFormato= new ButtonGroup();
 	
-
+	protected ButtonGroup grupoFormato= new ButtonGroup();
+	protected ButtonGroup grupoEstado=new  ButtonGroup();
+	
+	protected JTabbedPane panelCentro;
+	
+	
 	public UI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(500, 100, 534, 480);
+		setBounds(500, 100, 700, 480);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -67,7 +80,7 @@ public class UI extends JFrame {
 		lblLibreriaDeFelix.setFont(new Font("Tahoma", Font.BOLD, 20));
 		panelNorte.add(lblLibreriaDeFelix);
 
-		JTabbedPane panelCentro = new JTabbedPane(JTabbedPane.TOP);
+		panelCentro = new JTabbedPane(JTabbedPane.TOP);
 		panelCentro.setFont(new Font("Tahoma", Font.BOLD, 15));
 		contentPane.add(panelCentro, BorderLayout.CENTER);
 
@@ -297,26 +310,38 @@ public class UI extends JFrame {
 		panelSur.add(btnGuardar);
 
 		btnBorrar = new JButton("Borrar");
-
+		btnBorrar.setEnabled(false);
 		btnBorrar.setFont(new Font("Tahoma", Font.BOLD, 14));
 		panelSur.add(btnBorrar);
+		
 
 		btnConsultar = new JButton("Consultar");
-
+		btnConsultar.setEnabled(false);
 		btnConsultar.setFont(new Font("Tahoma", Font.BOLD, 14));
 		panelSur.add(btnConsultar);
+		
+		btnModificar = new JButton("Modificar");
+		btnModificar.setEnabled(false);
+		btnModificar.setFont(new Font("Tahoma", Font.BOLD, 14));
+		panelSur.add(btnModificar);
+		
+		btnAddUnidad = new JButton("Añadir Unidad");
+		btnAddUnidad.setEnabled(false);
+		btnAddUnidad.setFont(new Font("Tahoma", Font.BOLD, 14));
+		panelSur.add(btnAddUnidad);
 
 		btnSalir = new JButton("Salir");
-
 		btnSalir.setFont(new Font("Tahoma", Font.BOLD, 14));
 		panelSur.add(btnSalir);
 		
 		grupoFormato.add(rdbtnCartone);
-		grupoFormato.add(rdbtnEspiral);
-		grupoFormato.add(rdbtnGrapada);
-		grupoFormato.add(rdbtnNovedad);
-		grupoFormato.add(rdbtnReedicion);
 		grupoFormato.add(rdbtnRustica);
+		grupoFormato.add(rdbtnGrapada);
+		grupoFormato.add(rdbtnEspiral);
+		
+		grupoEstado.add(rdbtnReedicion);
+		grupoEstado.add(rdbtnNovedad);
+		
 		
 	}
 
@@ -327,6 +352,10 @@ public class UI extends JFrame {
 		textFieldEditorial.setText("");
 		textFieldCantidad.setText("");
 		textFieldPrecio.setText("");
+		grupoFormato.clearSelection();
+		grupoEstado.clearSelection();
 
 	}
+	
+	
 }
