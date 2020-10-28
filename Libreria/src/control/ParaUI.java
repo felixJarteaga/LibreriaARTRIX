@@ -47,7 +47,9 @@ public class ParaUI extends UI {
 						&& Validaciones.validarLetras(textFieldAutor.getText())
 						&& Validaciones.validarLetras(textFieldEditorial.getText())
 						&& Validaciones.isNumeroFloat(textFieldPrecio.getText())
-						&& getTextBtnSeleccionado(grupoFormato) != null) {
+						&& Validaciones.isNumber(textFieldCantidad.getText())
+						&& getTextBtnSeleccionado(grupoFormato) != null
+						&& getTextBtnSeleccionado(grupoEstado) != null && Float.valueOf(textFieldPrecio.getText())>=0) {
 					if (libreria.obtenerLibro(textFieldISBN.getText()) == null) {
 						libreria.guardar(new Libro(textFieldISBN.getText(), textFieldTitulo.getText(),
 								textFieldAutor.getText(), textFieldEditorial.getText(),
@@ -66,6 +68,7 @@ public class ParaUI extends UI {
 				} else {
 					JOptionPane.showMessageDialog(null, "Campos erroneos");
 				}
+				textFieldISBN.setEnabled(true);
 
 			}
 
@@ -78,7 +81,6 @@ public class ParaUI extends UI {
 					btnBorrar.setEnabled(true);
 					btnAddUnidad.setEnabled(true);
 					btnModificar.setEnabled(true);
-
 
 				} else {
 					btnBorrar.setEnabled(false);
@@ -106,16 +108,20 @@ public class ParaUI extends UI {
 
 					JOptionPane.showOptionDialog(null, txtnumeroLibrosModificar, "¿Cuantos libros quieres borrar?",
 							JOptionPane.CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
-					if (!txtnumeroLibrosModificar.getText().isEmpty()) {
+					if (!txtnumeroLibrosModificar.getText().isEmpty() && Integer.valueOf(txtnumeroLibrosModificar.getText())>=0) {
 						libreria.obtenerLibro(libreria.ISBNconcreto(tablaLibros.getSelectedRow()))
 								.restarCantidad(Integer.valueOf(txtnumeroLibrosModificar.getText()));
 						if (Integer.valueOf(txtnumeroLibrosModificar.getText()) > (libreria
-								.obtenerLibro(libreria.ISBNconcreto(tablaLibros.getSelectedRow()))).getCantidad()) {
+								.obtenerLibro(libreria.ISBNconcreto(tablaLibros.getSelectedRow()))).getCantidad() && (libreria
+								.obtenerLibro(libreria.ISBNconcreto(tablaLibros.getSelectedRow()))).getCantidad()<0) {
 							JOptionPane.showMessageDialog(null, "borro más unidades de las que hay en stock");
 						} else {
 							JOptionPane.showMessageDialog(null, " unidades borradas");
 						}
 
+					}else {
+						JOptionPane.showMessageDialog(null, "solo se acepta borrar con unidades positivas");
+						
 					}
 				}
 				rellenarTabla();
@@ -143,7 +149,7 @@ public class ParaUI extends UI {
 			public void actionPerformed(ActionEvent e) {
 				panelCentro.setSelectedIndex(0);
 				mostrarCampos(libreria.obtenerLibro(libreria.ISBNconcreto(tablaLibros.getSelectedRow())));
-				textFieldISBN.setEditable(false);
+				textFieldISBN.setEnabled(false);
 				libreria.borrarLibros(tablaLibros.getSelectedRow());
 
 			}
@@ -153,11 +159,14 @@ public class ParaUI extends UI {
 				JTextField txtnumeroLibrosModificar = new JTextField();
 				JOptionPane.showOptionDialog(null, txtnumeroLibrosModificar, "¿Cuantas unidades quieres añadir?",
 						JOptionPane.CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
-				if (!txtnumeroLibrosModificar.getText().isEmpty()) {
+				if (!txtnumeroLibrosModificar.getText().isEmpty()
+						&& Integer.valueOf(txtnumeroLibrosModificar.getText()) > 0) {
 					libreria.obtenerLibro(libreria.ISBNconcreto(tablaLibros.getSelectedRow()))
 							.sumarCantidad(Integer.valueOf(txtnumeroLibrosModificar.getText()));
 					rellenarTabla();
 					JOptionPane.showMessageDialog(null, "Unidades añadidas");
+				} else if (Integer.valueOf(txtnumeroLibrosModificar.getText()) < 0) {
+					JOptionPane.showMessageDialog(null, "Solo acepta añadir Unidades Positivas");
 				}
 			}
 		});
@@ -225,5 +234,4 @@ public class ParaUI extends UI {
 			}
 		}
 	}
-
 }
