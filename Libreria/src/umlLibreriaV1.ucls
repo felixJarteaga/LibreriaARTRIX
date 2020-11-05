@@ -1,15 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <class-diagram version="1.2.4" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
   associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
+<<<<<<< Updated upstream
   <class id="1" language="java" name="controlador.ParaUI" project="Libreria" 
     file="/Libreria/src/controlador/ParaUI.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="792" y="158"/>    
+=======
+  <class id="1" language="java" name="control.ParaUIGestionLibreria" project="Libreria" 
+    file="/Libreria/src/control/ParaUIGestionLibreria.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1119" y="55"/>    
+>>>>>>> Stashed changes
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
+<<<<<<< Updated upstream
   <class id="2" language="java" name="controlador.Principal" project="Libreria" 
     file="/Libreria/src/controlador/Principal.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="436" y="326"/>    
@@ -20,6 +27,9 @@
     </display>  
   </class>  
   <class id="3" language="java" name="modelo.Estanteria" project="Libreria" file="/Libreria/src/modelo/Estanteria.java" 
+=======
+  <class id="2" language="java" name="modelo.Estanteria" project="Libreria" file="/Libreria/src/modelo/Estanteria.java" 
+>>>>>>> Stashed changes
     binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="419" y="160"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -28,7 +38,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="4" language="java" name="modelo.Libro" project="Libreria" file="/Libreria/src/modelo/Libro.java" 
+  <class id="3" language="java" name="modelo.Libro" project="Libreria" file="/Libreria/src/modelo/Libro.java" 
     binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="127" y="161"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -37,24 +47,37 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
+<<<<<<< Updated upstream
   <class id="5" language="java" name="utilies.Validaciones" project="Libreria" 
     file="/Libreria/src/utilies/Validaciones.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="432" y="511"/>    
+=======
+  <class id="4" language="java" name="utiles.Validaciones" project="Libreria" 
+    file="/Libreria/src/utiles/Validaciones.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="553" y="382"/>    
+>>>>>>> Stashed changes
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
+<<<<<<< Updated upstream
   <class id="6" language="java" name="vista.UI" project="Libreria" file="/Libreria/src/vista/UI.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="798" y="468"/>    
+=======
+  <class id="5" language="java" name="vista.PanelGestionLibreriaS" project="Libreria" 
+    file="/Libreria/src/vista/PanelGestionLibreriaS.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1142" y="437"/>    
+>>>>>>> Stashed changes
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
+<<<<<<< Updated upstream
   <generalization id="7">    
     <end type="SOURCE" refId="1"/>    
     <end type="TARGET" refId="6"/>  
@@ -63,10 +86,25 @@
     <end type="SOURCE" refId="1" navigable="false">      
       <attribute id="9" name="libreria"/>      
       <multiplicity id="10" minimum="0" maximum="1"/>    
+=======
+  <dependency id="6">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="3"/>  
+  </dependency>  
+  <association id="7">    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="8" name="libreria">        
+        <position height="0" width="0" x="165" y="-114"/>      
+      </attribute>      
+      <multiplicity id="9" minimum="0" maximum="1">        
+        <position height="0" width="0" x="165" y="-114"/>      
+      </multiplicity>    
+>>>>>>> Stashed changes
     </end>    
-    <end type="TARGET" refId="3" navigable="true"/>    
+    <end type="TARGET" refId="2" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
+<<<<<<< Updated upstream
   <association id="11">    
     <end type="SOURCE" refId="3" navigable="false">      
       <attribute id="12" name="arrayLibro"/>      
@@ -75,6 +113,16 @@
     <end type="TARGET" refId="4" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
+=======
+  <dependency id="10">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="4"/>  
+  </dependency>  
+  <dependency id="11">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="3"/>  
+  </dependency>  
+>>>>>>> Stashed changes
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     sort-features="false" accessors="true" visibility="true">    
     <attributes public="true" package="true" protected="true" private="true" static="true"/>    

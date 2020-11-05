@@ -2,7 +2,7 @@ package controlador;
 
 import java.awt.EventQueue;
 
-import vista.UI;
+import vista.MenuVentanas;
 
 public class Principal {
 
@@ -13,7 +13,7 @@ public class Principal {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ParaUI frame = new ParaUI();
+					MenuVentanas frame = new MenuVentanas();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
