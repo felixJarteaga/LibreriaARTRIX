@@ -2,10 +2,14 @@ package controlador;
 
 import java.awt.EventQueue;
 
-import vista.UI;
+import vista.MenuVentanas;
 
 public class Principal {
+<<<<<<< Updated upstream:Libreria/src/controlador/Principal.java
 
+=======
+	
+>>>>>>> Stashed changes:Libreria/src/control/Principal.java
 	/**
 	 * Launch the application.
 	 */
@@ -13,7 +17,7 @@ public class Principal {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ParaUI frame = new ParaUI();
+					MenuVentanas frame = new MenuVentanas();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
