@@ -33,12 +33,7 @@ public class Estanteria {
 //	}
 
 	public void borrarLibros(int indice) {
-<<<<<<< Updated upstream
 		arrayLibro.remove(indice);
-=======
-		String isbn= ISBNconcreto(indice);
-		hashMapLibros.get(isbn).setBorrado(!hashMapLibros.get(isbn).isBorrado());;
->>>>>>> Stashed changes
 	}
 
 	public Libro obtenerLibro(String ISBN) {

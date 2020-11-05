@@ -1,6 +1,13 @@
 package vista;
 
 import java.awt.BorderLayout;
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JTabbedPane;
+import javax.swing.JLabel;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
@@ -8,99 +15,66 @@ import java.awt.Image;
 import javax.swing.ButtonGroup;
 import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.JScrollPane;
-import javax.swing.JTabbedPane;
-import javax.swing.JTable;
-import javax.swing.JTextField;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.border.EmptyBorder;
+import javax.swing.JButton;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.JRadioButton;
 import javax.swing.border.LineBorder;
-
-import control.ParaUIGestionLibreria;
-import modelo.IparaUI;
-import modelo.Iview;
-
-public class PanelGestionLibreria extends JPanel implements Iview {
+public class UI extends JFrame {
 
 	private JPanel contentPane;
 	protected JTextField textFieldISBN;
 	protected JTextField textFieldTitulo;
 	protected JTextField textFieldAutor;
 	protected JTextField textFieldEditorial;
-	protected JTextField textFieldCantidad;
 	protected JTextField textFieldPrecio;
-	
 	protected JTable tablaLibros;
 	protected JButton btnGuardar;
-	
-
 	protected JButton btnBorrar;
 	protected JButton btnConsultar;
-//	protected JButton btnSalir;
-	protected JButton btnAddUnidad;
-	protected JButton btnModificar;
-
-	
-	protected JRadioButton rdbtnCartone;
+	protected JButton btnSalir;
+	private JRadioButton rdbtnCartone;
 	private JRadioButton rdbtnRustica;
 	private JRadioButton rdbtnGrapada;
 	private JRadioButton rdbtnEspiral;
 	private JRadioButton rdbtnReedicion;
 	private JRadioButton rdbtnNovedad;
-	
-	protected ButtonGroup grupoFormato= new ButtonGroup();
-	protected ButtonGroup grupoEstado=new  ButtonGroup();
-	
-	protected JTabbedPane panelCentro;
-	protected JComboBox comboBoxTema;
-	
-	
-	private JPanel panelNorte;
-	private JPanel Libro;
-	private JPanel panelSur;
-	private JLabel lblLibreriaDeFelix;
-	private JPanel panelEstado;
-	private JPanel panelFormato;
-	
-	
-	
-	public PanelGestionLibreria(IparaUI paraUi) {
-		
-		setBounds(500, 100, 700, 480);
+	private ButtonGroup grupoFormato= new ButtonGroup();
+
+	public UI() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(500, 100, 534, 480);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
+		setContentPane(contentPane);
+		Image icon = new ImageIcon(getClass().getResource("/img/logoARTRIX.png")).getImage();
+		setIconImage(icon);
 
-		
-
-		panelNorte = new JPanel();
+		JPanel panelNorte = new JPanel();
 		panelNorte.setBackground(new Color(124, 252, 0));
 		contentPane.add(panelNorte, BorderLayout.NORTH);
 
-		lblLibreriaDeFelix = new JLabel("LIBRERIA DE FELIX");
+		JLabel lblLibreriaDeFelix = new JLabel("LIBRERIA DE FELIX");
 		lblLibreriaDeFelix.setFont(new Font("Tahoma", Font.BOLD, 20));
 		panelNorte.add(lblLibreriaDeFelix);
 
-		panelCentro = new JTabbedPane(JTabbedPane.TOP);
+		JTabbedPane panelCentro = new JTabbedPane(JTabbedPane.TOP);
 		panelCentro.setFont(new Font("Tahoma", Font.BOLD, 15));
 		contentPane.add(panelCentro, BorderLayout.CENTER);
 
-		Libro = new JPanel();
+		JPanel Libro = new JPanel();
 		Libro.setBackground(new Color(240, 230, 140));
 		panelCentro.addTab("Libro", null, Libro, null);
 
 		JLabel lblISBN = new JLabel("ISBN");
 
 		JLabel lblTitulo = new JLabel("Titulo");
-		
-		JLabel lblTema = new JLabel("Tema");
 
 		JLabel lblAutor = new JLabel("Autor");
 
@@ -124,30 +98,15 @@ public class PanelGestionLibreria extends JPanel implements Iview {
 		textFieldPrecio.setColumns(10);
 		
 		JLabel lblImgenLibro = new JLabel("");
-		lblImgenLibro.setIcon(new ImageIcon(PanelGestionLibreriaS.class.getResource("/img/libro_opt.png")));
+		lblImgenLibro.setIcon(new ImageIcon(UI.class.getResource("/img/libro_opt.png")));
 		
-		panelFormato = new JPanel();
+		JPanel panelFormato = new JPanel();
 		panelFormato.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
 		panelFormato.setBackground(new Color(240, 230, 140));
 		
-		panelEstado = new JPanel();
+		JPanel panelEstado = new JPanel();
 		panelEstado.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
 		panelEstado.setBackground(new Color(240, 230, 140));
-		
-		JLabel lblCantidad = new JLabel("Cantidad");
-		
-		textFieldCantidad = new JTextField();
-		textFieldCantidad.setColumns(10);
-		
-		comboBoxTema = new JComboBox();
-		comboBoxTema.addItem("");
-		comboBoxTema.addItem("Amor");
-		comboBoxTema.addItem("Acción");
-		comboBoxTema.addItem("Terror");
-		comboBoxTema.addItem("Técnico");
-		
-		
-		
 		GroupLayout gl_Libro = new GroupLayout(Libro);
 		gl_Libro.setHorizontalGroup(
 			gl_Libro.createParallelGroup(Alignment.LEADING)
@@ -160,31 +119,23 @@ public class PanelGestionLibreria extends JPanel implements Iview {
 						.addGroup(gl_Libro.createParallelGroup(Alignment.TRAILING, false)
 							.addComponent(lblPrecio, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 							.addComponent(lblAutor, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-							.addComponent(lblEditorial, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-							.addComponent(lblCantidad))
-						.addComponent(lblTema))
+							.addComponent(lblEditorial, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_Libro.createParallelGroup(Alignment.LEADING)
+						.addComponent(textFieldPrecio, GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+						.addComponent(textFieldAutor, GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+						.addComponent(textFieldEditorial, GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+						.addComponent(textFieldTitulo, GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
 						.addGroup(gl_Libro.createSequentialGroup()
-							.addGroup(gl_Libro.createParallelGroup(Alignment.LEADING)
-								.addComponent(textFieldPrecio, GroupLayout.DEFAULT_SIZE, 379, Short.MAX_VALUE)
-								.addComponent(textFieldAutor, GroupLayout.DEFAULT_SIZE, 379, Short.MAX_VALUE)
-								.addComponent(textFieldEditorial, GroupLayout.DEFAULT_SIZE, 379, Short.MAX_VALUE)
-								.addComponent(textFieldTitulo, GroupLayout.DEFAULT_SIZE, 379, Short.MAX_VALUE)
-								.addGroup(gl_Libro.createSequentialGroup()
-									.addComponent(textFieldISBN, GroupLayout.DEFAULT_SIZE, 379, Short.MAX_VALUE)
-									.addPreferredGap(ComponentPlacement.UNRELATED))
-								.addComponent(comboBoxTema, 0, 379, Short.MAX_VALUE))
-							.addGap(10))
-						.addGroup(gl_Libro.createSequentialGroup()
-							.addComponent(textFieldCantidad, GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-							.addGap(137)))
+							.addComponent(textFieldISBN, GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
+							.addPreferredGap(ComponentPlacement.UNRELATED)))
+					.addGap(10)
 					.addComponent(lblImgenLibro)
 					.addGap(36))
 				.addGroup(gl_Libro.createSequentialGroup()
 					.addGroup(gl_Libro.createParallelGroup(Alignment.TRAILING)
-						.addComponent(panelEstado, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 659, Short.MAX_VALUE)
-						.addComponent(panelFormato, GroupLayout.DEFAULT_SIZE, 659, Short.MAX_VALUE))
+						.addComponent(panelEstado, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 563, Short.MAX_VALUE)
+						.addComponent(panelFormato, GroupLayout.DEFAULT_SIZE, 563, Short.MAX_VALUE))
 					.addContainerGap())
 		);
 		gl_Libro.setVerticalGroup(
@@ -200,11 +151,7 @@ public class PanelGestionLibreria extends JPanel implements Iview {
 							.addGroup(gl_Libro.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblTitulo)
 								.addComponent(textFieldTitulo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(gl_Libro.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblTema)
-								.addComponent(comboBoxTema, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addGap(8)
+							.addGap(28)
 							.addGroup(gl_Libro.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblAutor)
 								.addComponent(textFieldAutor, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
@@ -212,11 +159,7 @@ public class PanelGestionLibreria extends JPanel implements Iview {
 							.addGroup(gl_Libro.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblEditorial)
 								.addComponent(textFieldEditorial, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addGroup(gl_Libro.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblCantidad)
-								.addComponent(textFieldCantidad, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addGap(7)
+							.addGap(32)
 							.addGroup(gl_Libro.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblPrecio)
 								.addComponent(textFieldPrecio, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
@@ -225,7 +168,7 @@ public class PanelGestionLibreria extends JPanel implements Iview {
 					.addComponent(panelFormato, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(panelEstado, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(15, Short.MAX_VALUE))
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		
 		JLabel lblEstado = new JLabel("Estado:");
@@ -326,7 +269,7 @@ public class PanelGestionLibreria extends JPanel implements Iview {
 		scrollPane.setViewportView(tablaLibros);
 		Estanteria.setLayout(gl_Estanteria);
 
-		panelSur = new JPanel();
+		JPanel panelSur = new JPanel();
 		panelSur.setBackground(new Color(240, 128, 128));
 		contentPane.add(panelSur, BorderLayout.SOUTH);
 
@@ -336,68 +279,27 @@ public class PanelGestionLibreria extends JPanel implements Iview {
 		panelSur.add(btnGuardar);
 
 		btnBorrar = new JButton("Borrar");
-		btnBorrar.setEnabled(false);
+
 		btnBorrar.setFont(new Font("Tahoma", Font.BOLD, 14));
 		panelSur.add(btnBorrar);
-		
 
 		btnConsultar = new JButton("Consultar");
-		btnConsultar.setEnabled(false);
+
 		btnConsultar.setFont(new Font("Tahoma", Font.BOLD, 14));
 		panelSur.add(btnConsultar);
-		
-		btnModificar = new JButton("Modificar");
-		btnModificar.setEnabled(false);
-		btnModificar.setFont(new Font("Tahoma", Font.BOLD, 14));
-		panelSur.add(btnModificar);
-		
-		btnAddUnidad = new JButton("Añadir Unidad");
-		btnAddUnidad.setEnabled(false);
-		btnAddUnidad.setFont(new Font("Tahoma", Font.BOLD, 14));
-		panelSur.add(btnAddUnidad);
 
-//		btnSalir = new JButton("Salir");
-//		btnSalir.setFont(new Font("Tahoma", Font.BOLD, 14));
-//		panelSur.add(btnSalir);
+		btnSalir = new JButton("Salir");
+
+		btnSalir.setFont(new Font("Tahoma", Font.BOLD, 14));
+		panelSur.add(btnSalir);
 		
 		grupoFormato.add(rdbtnCartone);
-		grupoFormato.add(rdbtnRustica);
-		grupoFormato.add(rdbtnGrapada);
 		grupoFormato.add(rdbtnEspiral);
+		grupoFormato.add(rdbtnGrapada);
+		grupoFormato.add(rdbtnNovedad);
+		grupoFormato.add(rdbtnReedicion);
+		grupoFormato.add(rdbtnRustica);
 		
-		grupoEstado.add(rdbtnReedicion);
-		grupoEstado.add(rdbtnNovedad);
-		
-		present(paraUi);
-		
-	}
-	
-	public JPanel getPanelEstado() {
-		return panelEstado;
-	}
-
-	public JPanel getPanelFormato() {
-		return panelFormato;
-	}
-
-	public JLabel getLblLibreriaDeFelix() {
-		return lblLibreriaDeFelix;
-	}
-
-	public JPanel getPanelSur() {
-		return panelSur;
-	}
-
-	public JPanel getLibro() {
-		return Libro;
-	}
-
-	public JPanel getPanelNorte() {
-		return panelNorte;
-	}
-
-	public JPanel getContentPane() {
-		return contentPane;
 	}
 
 	public void vaciarCampos() {
@@ -405,109 +307,7 @@ public class PanelGestionLibreria extends JPanel implements Iview {
 		textFieldTitulo.setText("");
 		textFieldAutor.setText("");
 		textFieldEditorial.setText("");
-		textFieldCantidad.setText("");
 		textFieldPrecio.setText("");
-		grupoFormato.clearSelection();
-		grupoEstado.clearSelection();
-		comboBoxTema.setSelectedItem("");
 
 	}
-
-	@Override
-	public void present(IparaUI paraUi) {
-		paraUi.accept(this);
-	}
-	public JTextField getTextFieldISBN() {
-		return textFieldISBN;
-	}
-
-	public JTextField getTextFieldTitulo() {
-		return textFieldTitulo;
-	}
-
-	public JTextField getTextFieldAutor() {
-		return textFieldAutor;
-	}
-
-	public JTextField getTextFieldEditorial() {
-		return textFieldEditorial;
-	}
-
-	public JTextField getTextFieldCantidad() {
-		return textFieldCantidad;
-	}
-
-	public JTextField getTextFieldPrecio() {
-		return textFieldPrecio;
-	}
-
-	public JTable getTablaLibros() {
-		return tablaLibros;
-	}
-
-	public JButton getBtnGuardar() {
-		return btnGuardar;
-	}
-
-	public JButton getBtnBorrar() {
-		return btnBorrar;
-	}
-
-	public JButton getBtnConsultar() {
-		return btnConsultar;
-	}
-
-//	public JButton getBtnSalir() {
-//		return btnSalir;
-//	}
-
-	public JButton getBtnAddUnidad() {
-		return btnAddUnidad;
-	}
-
-	public JButton getBtnModificar() {
-		return btnModificar;
-	}
-
-	public JRadioButton getRdbtnCartone() {
-		return rdbtnCartone;
-	}
-
-	public JRadioButton getRdbtnRustica() {
-		return rdbtnRustica;
-	}
-
-	public JRadioButton getRdbtnGrapada() {
-		return rdbtnGrapada;
-	}
-
-	public JRadioButton getRdbtnEspiral() {
-		return rdbtnEspiral;
-	}
-
-	public JRadioButton getRdbtnReedicion() {
-		return rdbtnReedicion;
-	}
-
-	public JRadioButton getRdbtnNovedad() {
-		return rdbtnNovedad;
-	}
-
-	public ButtonGroup getGrupoFormato() {
-		return grupoFormato;
-	}
-
-	public ButtonGroup getGrupoEstado() {
-		return grupoEstado;
-	}
-
-	public JTabbedPane getPanelCentro() {
-		return panelCentro;
-	}
-
-	public JComboBox getComboBoxTema() {
-		return comboBoxTema;
-	}
-	
-
 }
