@@ -173,7 +173,7 @@ public class ParaUIGestionLibreria implements IparaUI {
 				gestion.getPanelCentro().setSelectedIndex(0);
 				mostrarCampos(libreria.obtenerLibro(libreria.ISBNconcreto(gestion.getTablaLibros().getSelectedRow())));
 				gestion.getTextFieldISBN().setEnabled(false);
-				libreria.borrarLibros(gestion.getTablaLibros().getSelectedRow());
+				libreria.borrarLibrosModificar(gestion.getTablaLibros().getSelectedRow());
 
 			}
 		});

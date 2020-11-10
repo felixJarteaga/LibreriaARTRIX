@@ -505,6 +505,4 @@ public class PanelGestionLibreria extends JPanel implements Iview {
 	public JComboBox getComboBoxTema() {
 		return comboBoxTema;
 	}
-	
-
 }

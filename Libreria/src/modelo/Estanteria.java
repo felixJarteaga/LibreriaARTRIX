@@ -25,6 +25,11 @@ public class Estanteria {
 		String isbn= ISBNconcreto(indice);
 		hashMapLibros.get(isbn).setBorrado(!hashMapLibros.get(isbn).isBorrado());
 	}
+	
+	public void borrarLibrosModificar(int indice) {
+		String isbn= ISBNconcreto(indice);
+		hashMapLibros.remove(isbn);
+	}
 
 	public Libro obtenerLibro(String ISBN) {
 		return this.hashMapLibros.get(ISBN);

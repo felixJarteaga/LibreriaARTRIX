@@ -20,6 +20,7 @@ public class Libro {
 		this.estado = estado;
 		this.tema = tema;
 		this.borrado = false;
+		this.cantidad=cantidad;
 
 	}
 
