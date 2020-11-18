@@ -1,6 +1,8 @@
 package modelo;
 
-public class Libro {
+import java.io.Serializable;
+
+public class Libro implements Serializable{
 
 	private String ISBN, titulo, autor, editorial, formato, estado, tema;
 	private Float Precio;
@@ -88,7 +90,7 @@ public class Libro {
 	public String toString() {
 
 		return "ISBN: " + getISBN() + "\nTitulo: " + getTitulo() + "\nAutor: " + getTitulo() + "\nEditorial: "
-				+ getEditorial() + "\nPrecio: " + getPrecio();
+				+ getEditorial() + "\nPrecio: " + getPrecio()+"\nTema: " + getTema()+"\nFormato: "+getFormato();
 	}
 
 }

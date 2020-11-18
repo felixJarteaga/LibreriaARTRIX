@@ -19,6 +19,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
+import modelo.CuadroDialogos;
 import modelo.Estanteria;
 import modelo.IparaUI;
 import modelo.Iview;
@@ -41,6 +42,7 @@ public class ParaUIGestionLibreria implements IparaUI {
 
 	@Override
 	public void accept(Iview view) {
+
 		gestion = (PanelGestionLibreria) view;
 
 		gestion.getTextFieldISBN().addKeyListener(new KeyAdapter() {
@@ -53,19 +55,24 @@ public class ParaUIGestionLibreria implements IparaUI {
 			}
 		});
 
+		rellenarTabla(gestion.getTablaLibros(), false);
+		rellenarTablaAlmacen(gestion.getTableFichero(), false);
+		rellenarTabla(papelera.getTablaPapelera(), true);
+
 		gestion.getBtnGuardar().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (Validaciones.validarISBN(gestion.getTextFieldISBN().getText())
-						&& Validaciones.validarLetras(gestion.getTextFieldAutor().getText())
-						&& Validaciones.validarLetras(gestion.getTextFieldEditorial().getText())
-						&& Validaciones.isNumeroFloat(gestion.getTextFieldPrecio().getText())
-						&& Validaciones.isNumber(gestion.getTextFieldCantidad().getText())
+						&& Validaciones.validarLetras(gestion.getTextFieldAutor().getText(), "Autor")
+						&& Validaciones.validarLetras(gestion.getTextFieldEditorial().getText(), "Editorial")
+						&& Validaciones.isNumeroFloat(gestion.getTextFieldPrecio().getText(), "Precio")
+						&& Validaciones.isNumber(gestion.getTextFieldCantidad().getText(), "Cantidad")
 						&& getTextBtnSeleccionado(gestion.getGrupoFormato()) != null
 						&& getTextBtnSeleccionado(gestion.getGrupoEstado()) != null
 						&& Float.valueOf(gestion.getTextFieldPrecio().getText()) >= 0
 						&& gestion.getComboBoxTema().getSelectedItem() != "") {
+
 					if (libreria.obtenerLibro(gestion.getTextFieldISBN().getText()) == null) {
-						libreria.guardar(new Libro(gestion.getTextFieldISBN().getText(),
+						libreria.insertarLibro(new Libro(gestion.getTextFieldISBN().getText(),
 								gestion.getTextFieldTitulo().getText(), gestion.getTextFieldAutor().getText(),
 								gestion.getTextFieldEditorial().getText(),
 								Integer.valueOf(gestion.getTextFieldCantidad().getText()),
@@ -75,6 +82,7 @@ public class ParaUIGestionLibreria implements IparaUI {
 								String.valueOf(gestion.getComboBoxTema().getSelectedItem())));
 
 						rellenarTabla(gestion.getTablaLibros(), false);
+						rellenarTablaAlmacen(gestion.getTableFichero(), false);
 						JOptionPane.showMessageDialog(null, "Libro guardado");
 						gestion.vaciarCampos();
 						gestion.getBtnConsultar().setEnabled(true);
@@ -83,9 +91,17 @@ public class ParaUIGestionLibreria implements IparaUI {
 						JOptionPane.showMessageDialog(null, "ISBN existente");
 					}
 
-				} else {
-					JOptionPane.showMessageDialog(null, "Campos erroneos");
+				} else if (getTextBtnSeleccionado(gestion.getGrupoFormato()) == null) {
+					JOptionPane.showMessageDialog(null, "FALLO: selecciona formato");
+
+				} else if (getTextBtnSeleccionado(gestion.getGrupoEstado()) == null) {
+					JOptionPane.showMessageDialog(null, "FALLO: selecciona estado");
+				} else if (gestion.getComboBoxTema().getSelectedItem() == "") {
+					JOptionPane.showMessageDialog(null, "FALLO: selecciona tema");
+				} else if (Float.valueOf(gestion.getTextFieldPrecio().getText()) < 0) {
+					JOptionPane.showMessageDialog(null, "FALLO: el precio debe ser positivo");
 				}
+
 				gestion.getTextFieldISBN().setEnabled(true);
 
 			}
@@ -99,11 +115,13 @@ public class ParaUIGestionLibreria implements IparaUI {
 					gestion.getBtnBorrar().setEnabled(true);
 					gestion.getBtnAddUnidad().setEnabled(true);
 					gestion.getBtnModificar().setEnabled(true);
+					gestion.getBtnConsultar().setEnabled(true);
 
 				} else {
 					gestion.getBtnBorrar().setEnabled(false);
 					gestion.getBtnAddUnidad().setEnabled(false);
 					gestion.getBtnModificar().setEnabled(false);
+					gestion.getBtnConsultar().setEnabled(false);
 
 				}
 
@@ -119,7 +137,9 @@ public class ParaUIGestionLibreria implements IparaUI {
 						JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, botonesVentanaBorrar, null);
 
 				if (opcion == 0) {
-					libreria.borrarLibros(gestion.getTablaLibros().getSelectedRow());
+					libreria.cambiarEstadoLibro(
+							(String) gestion.getTablaLibros().getValueAt(gestion.getTablaLibros().getSelectedRow(), 0));
+
 					JOptionPane.showMessageDialog(null, "Libro borrado");
 
 				} else if (opcion == 1) {
@@ -148,6 +168,7 @@ public class ParaUIGestionLibreria implements IparaUI {
 				}
 				rellenarTabla(papelera.getTablaPapelera(), true);
 				rellenarTabla(gestion.getTablaLibros(), false);
+				rellenarTablaAlmacen(gestion.getTableFichero(), false);
 
 			}
 		});
@@ -157,7 +178,7 @@ public class ParaUIGestionLibreria implements IparaUI {
 				try {
 					String ISBNSel = JOptionPane.showInputDialog("Introduce ISBN");
 					if (libreria.obtenerLibro(ISBNSel) == null && !ISBNSel.isEmpty()) {
-						JOptionPane.showMessageDialog(null, "No existe");
+						CuadroDialogos.errorExistenciaIsbn();
 					}
 
 					JOptionPane.showMessageDialog(null, libreria.obtenerLibro(ISBNSel).toString());
@@ -173,7 +194,8 @@ public class ParaUIGestionLibreria implements IparaUI {
 				gestion.getPanelCentro().setSelectedIndex(0);
 				mostrarCampos(libreria.obtenerLibro(libreria.ISBNconcreto(gestion.getTablaLibros().getSelectedRow())));
 				gestion.getTextFieldISBN().setEnabled(false);
-				libreria.borrarLibrosModificar(gestion.getTablaLibros().getSelectedRow());
+				libreria.cambiarEstadoLibro(
+						(String) gestion.getTablaLibros().getValueAt(gestion.getTablaLibros().getSelectedRow(), 0));
 
 			}
 		});
@@ -187,6 +209,7 @@ public class ParaUIGestionLibreria implements IparaUI {
 					libreria.obtenerLibro(libreria.ISBNconcreto(gestion.getTablaLibros().getSelectedRow()))
 							.sumarCantidad(Integer.valueOf(txtnumeroLibrosModificar.getText()));
 					rellenarTabla(gestion.getTablaLibros(), false);
+					rellenarTablaAlmacen(gestion.getTableFichero(), false);
 					JOptionPane.showMessageDialog(null, "Unidades añadidas");
 				} else if (Integer.valueOf(txtnumeroLibrosModificar.getText()) < 0) {
 					JOptionPane.showMessageDialog(null, "Solo acepta añadir Unidades Positivas");
@@ -198,19 +221,23 @@ public class ParaUIGestionLibreria implements IparaUI {
 		papelera.getBtnRestaurar().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				libreria.borrarLibros(papelera.getTablaPapelera().getSelectedRow());
+				libreria.cambiarEstadoLibro((String) papelera.getTablaPapelera()
+						.getValueAt(papelera.getTablaPapelera().getSelectedRow(), 0));
 
 				rellenarTabla(papelera.getTablaPapelera(), true);
 				rellenarTabla(gestion.getTablaLibros(), false);
+				rellenarTablaAlmacen(gestion.getTableFichero(), false);
 
 			}
 		});
 
 		papelera.getBtnBorrarLibroPapelera().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				libreria.borrarLibros(papelera.getTablaPapelera().getSelectedRow());
+
+				libreria.borrarLibro((String) papelera.getTablaPapelera().getModel()
+						.getValueAt(papelera.getTablaPapelera().getSelectedRow(), 0));
 				JOptionPane.showMessageDialog(null, "Libro borrado");
-				rellenarTabla(papelera.getTablaPapelera(), false);
+				rellenarTabla(papelera.getTablaPapelera(), true);
 
 			}
 		});
@@ -218,7 +245,6 @@ public class ParaUIGestionLibreria implements IparaUI {
 	}
 
 	public void rellenarTabla(JTable tabla, boolean borrado) {
-
 		HashMap<String, Libro> hashMapLibro = libreria.getHashMapLibro();
 		String nombresColumnas[] = { "ISBN", "TITULO", "AUTOR", "EDITORIAL", "TEMA", "CANTIDAD", "PRECIO", "FORMATO",
 				"ESTADO" };
@@ -240,6 +266,35 @@ public class ParaUIGestionLibreria implements IparaUI {
 				filasTabla[i][6] = String.valueOf(entry.getValue().getPrecio());
 				filasTabla[i][7] = entry.getValue().getFormato();
 				filasTabla[i][8] = entry.getValue().getEstado();
+				i++;
+			}
+
+		}
+		DefaultTableModel tablaCompleta = new DefaultTableModel(filasTabla, nombresColumnas);
+		tabla.setModel(tablaCompleta);
+		DefaultTableCellRenderer alinear = new DefaultTableCellRenderer();
+		alinear.setHorizontalAlignment(SwingConstants.CENTER);
+		for (int j = 0; j < gestion.getTablaLibros().getColumnCount(); j++) {
+			gestion.getTablaLibros().getColumnModel().getColumn(j).setCellRenderer(alinear);
+		}
+
+	}
+
+	public void rellenarTablaAlmacen(JTable tabla, boolean borrado) {
+		libreria.leerEstanteria();
+		HashMap<String, Libro> hashMapLibro = libreria.getHashMapLibro();
+		String nombresColumnas[] = { "TITULO" };
+		int filasRellenas = 0;
+		filasRellenas = ajustarTabla(borrado, hashMapLibro, filasRellenas);
+		String[][] filasTabla = new String[filasRellenas][nombresColumnas.length];
+		int i = 0;
+
+		for (HashMap.Entry<String, Libro> entry : hashMapLibro.entrySet()) {
+
+			if (entry.getValue().isBorrado() == borrado) {
+
+				filasTabla[i][0] = entry.getValue().getTitulo();
+
 				i++;
 			}
 

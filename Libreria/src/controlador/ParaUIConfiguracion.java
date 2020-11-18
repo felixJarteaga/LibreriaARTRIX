@@ -36,6 +36,7 @@ public class ParaUIConfiguracion implements IparaUI {
 				configuracion.getBtnModoDia().setForeground(new Color(0, 0, 0));
 				configuracion.getBtnModoNoche().setBackground(new Color(240, 128, 128));
 				configuracion.getBtnModoNoche().setForeground(new Color(0, 0, 0));
+			
 
 				panelGestion.getPanelNorte().setBackground(new Color(124, 252, 0));
 				panelGestion.getLblLibreriaDeFelix().setForeground(new Color(0, 0, 0));
@@ -49,6 +50,10 @@ public class ParaUIConfiguracion implements IparaUI {
 				panelGestion.getPanelEstado().setBackground(new Color(240, 230, 140));
 				panelGestion.getRdbtnReedicion().setBackground(new Color(240, 230, 140));
 				panelGestion.getRdbtnNovedad().setBackground(new Color(240, 230, 140));
+				
+				panelGestion.getPanelTituloFichero().setBackground(new Color(124,252,0));
+				panelGestion.getLblTituloFichero().setForeground(new Color(0,0,0));
+				panelGestion.getPanelCentroFichero().setBackground(new Color(240,230,140));
 
 				panelGestion.getPanelSur().setBackground(new Color(240, 128, 128));
 
@@ -81,6 +86,10 @@ public class ParaUIConfiguracion implements IparaUI {
 				panelGestion.getPanelEstado().setBackground(new Color(159, 159, 146));
 				panelGestion.getRdbtnReedicion().setBackground(new Color(159, 159, 146));
 				panelGestion.getRdbtnNovedad().setBackground(new Color(159, 159, 146));
+				
+				panelGestion.getPanelTituloFichero().setBackground(new Color(0,0,0));
+				panelGestion.getLblTituloFichero().setForeground(new Color(255,255,255));
+				panelGestion.getPanelCentroFichero().setBackground(new Color(159, 159, 146));
 
 				panelGestion.getPanelSur().setBackground(new Color(159, 159, 146));
 

@@ -57,6 +57,7 @@ public class MenuVentanas extends JFrame  {
 		mntmNewMenuItemGestionLibreria.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 //				cambiarPanel();
+		
 				((CardLayout) contentPane.getLayout()).show(contentPane, "PanelGestionLibreria");
 				
 			}

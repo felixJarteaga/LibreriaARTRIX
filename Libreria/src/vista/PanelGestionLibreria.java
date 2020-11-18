@@ -23,6 +23,7 @@ import javax.swing.border.LineBorder;
 
 import modelo.IparaUI;
 import modelo.Iview;
+import javax.swing.border.EtchedBorder;
 
 public class PanelGestionLibreria extends JPanel implements Iview {
 
@@ -34,6 +35,10 @@ public class PanelGestionLibreria extends JPanel implements Iview {
 	protected JTextField textFieldCantidad;
 	protected JTextField textFieldPrecio;
 	
+	public JTable getTableFichero() {
+		return tableFichero;
+	}
+
 	protected JTable tablaLibros;
 	protected JButton btnGuardar;
 	
@@ -65,6 +70,11 @@ public class PanelGestionLibreria extends JPanel implements Iview {
 	private JLabel lblLibreriaDeFelix;
 	private JPanel panelEstado;
 	private JPanel panelFormato;
+	private JPanel panelFichero;
+	protected JPanel panelTituloFichero;
+	protected JPanel panelCentroFichero;
+	protected JLabel lblTituloFichero;
+	protected JTable tableFichero;
 	
 	
 	
@@ -162,26 +172,22 @@ public class PanelGestionLibreria extends JPanel implements Iview {
 						.addComponent(lblTema))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_Libro.createParallelGroup(Alignment.LEADING)
+						.addComponent(textFieldCantidad, GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
+						.addComponent(textFieldPrecio, GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
+						.addComponent(textFieldAutor, GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
+						.addComponent(textFieldEditorial, GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
+						.addComponent(textFieldTitulo, GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
 						.addGroup(gl_Libro.createSequentialGroup()
-							.addGroup(gl_Libro.createParallelGroup(Alignment.LEADING)
-								.addComponent(textFieldPrecio, GroupLayout.DEFAULT_SIZE, 379, Short.MAX_VALUE)
-								.addComponent(textFieldAutor, GroupLayout.DEFAULT_SIZE, 379, Short.MAX_VALUE)
-								.addComponent(textFieldEditorial, GroupLayout.DEFAULT_SIZE, 379, Short.MAX_VALUE)
-								.addComponent(textFieldTitulo, GroupLayout.DEFAULT_SIZE, 379, Short.MAX_VALUE)
-								.addGroup(gl_Libro.createSequentialGroup()
-									.addComponent(textFieldISBN, GroupLayout.DEFAULT_SIZE, 379, Short.MAX_VALUE)
-									.addPreferredGap(ComponentPlacement.UNRELATED))
-								.addComponent(comboBoxTema, 0, 379, Short.MAX_VALUE))
-							.addGap(10))
-						.addGroup(gl_Libro.createSequentialGroup()
-							.addComponent(textFieldCantidad, GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-							.addGap(137)))
+							.addComponent(textFieldISBN, GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
+							.addPreferredGap(ComponentPlacement.UNRELATED))
+						.addComponent(comboBoxTema, 0, 148, Short.MAX_VALUE))
+					.addGap(10)
 					.addComponent(lblImgenLibro)
 					.addGap(36))
 				.addGroup(gl_Libro.createSequentialGroup()
 					.addGroup(gl_Libro.createParallelGroup(Alignment.TRAILING)
-						.addComponent(panelEstado, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 659, Short.MAX_VALUE)
-						.addComponent(panelFormato, GroupLayout.DEFAULT_SIZE, 659, Short.MAX_VALUE))
+						.addComponent(panelEstado, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(panelFormato, GroupLayout.DEFAULT_SIZE, 428, Short.MAX_VALUE))
 					.addContainerGap())
 		);
 		gl_Libro.setVerticalGroup(
@@ -222,7 +228,7 @@ public class PanelGestionLibreria extends JPanel implements Iview {
 					.addComponent(panelFormato, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(panelEstado, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(15, Short.MAX_VALUE))
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		
 		JLabel lblEstado = new JLabel("Estado:");
@@ -365,10 +371,69 @@ public class PanelGestionLibreria extends JPanel implements Iview {
 		grupoEstado.add(rdbtnReedicion);
 		grupoEstado.add(rdbtnNovedad);
 		
+		panelFichero = new JPanel();
+		panelFichero.setBorder(new LineBorder(new Color(0, 0, 0), 2));
+		contentPane.add(panelFichero, BorderLayout.EAST);
+		panelFichero.setLayout(new BorderLayout(0, 0));
+		panelFichero.setBackground(new Color(240,230,140));
+		
+		panelTituloFichero = new JPanel();
+		panelFichero.add(panelTituloFichero, BorderLayout.NORTH);
+		panelTituloFichero.setBackground(new Color(124,252,0));
+		
+		lblTituloFichero = new JLabel("ALMACEN");
+		lblTituloFichero.setFont(new Font("Tahoma", Font.BOLD, 14));
+		panelTituloFichero.add(lblTituloFichero);
+		lblTituloFichero.setBackground(new Color(124,252,0));
+		
+		
+		panelCentroFichero = new JPanel();
+		panelFichero.add(panelCentroFichero, BorderLayout.CENTER);
+		panelCentroFichero.setBackground(new Color(240,230,140));
+		
+		JScrollPane scrollPane_1 = new JScrollPane();
+		GroupLayout gl_panelCentroFichero = new GroupLayout(panelCentroFichero);
+		gl_panelCentroFichero.setHorizontalGroup(
+			gl_panelCentroFichero.createParallelGroup(Alignment.LEADING)
+				.addGroup(Alignment.TRAILING, gl_panelCentroFichero.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(scrollPane_1, GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
+					.addContainerGap())
+		);
+		gl_panelCentroFichero.setVerticalGroup(
+			gl_panelCentroFichero.createParallelGroup(Alignment.LEADING)
+				.addGroup(Alignment.TRAILING, gl_panelCentroFichero.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(scrollPane_1, GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
+					.addContainerGap())
+		);
+		
+		tableFichero = new JTable() {
+		@Override
+		public boolean isCellEditable(int row, int column) {
+			return false;
+		}
+	};
+		
+		scrollPane_1.setViewportView(tableFichero);
+		panelCentroFichero.setLayout(gl_panelCentroFichero);
+		
 		present(paraUi);
 		
 	}
 	
+	
+
+	public JPanel getPanelCentroFichero() {
+		return panelCentroFichero;
+	}
+
+
+
+	public JLabel getLblTituloFichero() {
+		return lblTituloFichero;
+	}
+
 	public JPanel getPanelEstado() {
 		return panelEstado;
 	}
@@ -413,6 +478,9 @@ public class PanelGestionLibreria extends JPanel implements Iview {
 	@Override
 	public void present(IparaUI paraUi) {
 		paraUi.accept(this);
+	}
+	public JPanel getPanelTituloFichero() {
+		return panelTituloFichero;
 	}
 	public JTextField getTextFieldISBN() {
 		return textFieldISBN;
