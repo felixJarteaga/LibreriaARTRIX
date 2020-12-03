@@ -2,7 +2,7 @@ package modelo;
 
 import java.io.Serializable;
 
-public class Libro implements Serializable{
+public class Libro implements Serializable {
 
 	private String ISBN, titulo, autor, editorial, formato, estado, tema;
 	private Float Precio;
@@ -22,7 +22,7 @@ public class Libro implements Serializable{
 		this.estado = estado;
 		this.tema = tema;
 		this.borrado = false;
-		this.cantidad=cantidad;
+		this.cantidad = cantidad;
 
 	}
 
@@ -90,7 +90,8 @@ public class Libro implements Serializable{
 	public String toString() {
 
 		return "ISBN: " + getISBN() + "\nTitulo: " + getTitulo() + "\nAutor: " + getTitulo() + "\nEditorial: "
-				+ getEditorial() + "\nPrecio: " + getPrecio()+"\nTema: " + getTema()+"\nFormato: "+getFormato();
+				+ getEditorial() + "\nPrecio: " + getPrecio() + "\nTema: " + getTema() + "\nFormato: " + getFormato()
+				+ "\nEstado: " + getEstado();
 	}
 
 }

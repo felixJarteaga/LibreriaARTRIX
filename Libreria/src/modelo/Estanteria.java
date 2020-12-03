@@ -7,15 +7,16 @@ import java.util.Set;
 import controlador.AlmacenUnico;
 
 public class Estanteria implements Estanterizable {
-	
-	
+
 	private HashMap<String, Libro> hashMapLibros;
+
+
 
 	private AlmacenUnico almacen;
 
 	public Estanteria() {
 		super();
-		this.almacen = new AlmacenUnico("data.libros");
+		this.almacen = new AlmacenUnico();
 		iniciarFichero();
 
 	}
@@ -27,33 +28,34 @@ public class Estanteria implements Estanterizable {
 		}
 		if (null == this.hashMapLibros) {
 			this.hashMapLibros = new HashMap<String, Libro>();
-			guardarEstanteria();
 		}
 	}
+
 
 	public void leerEstanteria() {
 		this.hashMapLibros = (HashMap<String, Libro>) almacen.recuperar();
 	}
 
+
 	@Override
 	public boolean insertarLibro(Libro libro) {
 		leerEstanteria();
-		System.out.println(this.hashMapLibros);
 		this.hashMapLibros.put(libro.getISBN(), libro);
 
-		guardarEstanteria();
+		guardarEstanteria(libro);
 
 		return true;
 	}
 
-	public boolean guardarEstanteria() {
-		return almacen.almacena(this.hashMapLibros);
+	public boolean guardarEstanteria(Libro libro) {
+		return almacen.almacena(libro);
 	}
+	
 
 	public void cambiarEstadoLibro(String isbn) {
 		leerEstanteria();
 		hashMapLibros.get(isbn).setBorrado(!hashMapLibros.get(isbn).isBorrado());
-		guardarEstanteria();
+		almacen.actualizarFichero(hashMapLibros);
 
 	}
 
@@ -61,15 +63,16 @@ public class Estanteria implements Estanterizable {
 	public boolean borrarLibro(String isbn) {
 		leerEstanteria();
 		hashMapLibros.remove(isbn);
+		almacen.actualizarFichero(hashMapLibros);
 
-		guardarEstanteria();
 
 		return true;
 	}
-
+	
 	public Libro obtenerLibro(String ISBN) {
 		return this.hashMapLibros.get(ISBN);
 	}
+	
 
 	public Libro getLibro(int index) {
 		String ISBN = ISBNconcreto(index);
@@ -95,3 +98,7 @@ public class Estanteria implements Estanterizable {
 	}
 
 }
+
+
+
+
