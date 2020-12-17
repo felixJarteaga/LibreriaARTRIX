@@ -1,78 +1,80 @@
 package modelo;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
 
-import controlador.AlmacenUnico;
+import controlador.LibreriaCaller;
 
-public class Estanteria implements Estanterizable {
+public class Estanteria {
 
 	private HashMap<String, Libro> hashMapLibros;
 
-
-
-	private AlmacenUnico almacen;
+	private LibreriaCaller callerLibreria;
+	
+//	private AlmacenUnico almacen;
 
 	public Estanteria() {
 		super();
-		this.almacen = new AlmacenUnico();
-		iniciarFichero();
-
-	}
-
-	private void iniciarFichero() {
 		try {
-			leerEstanteria();
-		} catch (Exception e) {
+			this.callerLibreria = new LibreriaCaller();
+		} catch (SQLException | ClassNotFoundException e) {
+			e.printStackTrace();
 		}
-		if (null == this.hashMapLibros) {
-			this.hashMapLibros = new HashMap<String, Libro>();
-		}
+		leerEstanteria();
+		
+		
 	}
-
 
 	public void leerEstanteria() {
-		this.hashMapLibros = (HashMap<String, Libro>) almacen.recuperar();
+		this.hashMapLibros =callerLibreria.getLibros();
+		
 	}
 
-
-	@Override
 	public boolean insertarLibro(Libro libro) {
 		leerEstanteria();
 		this.hashMapLibros.put(libro.getISBN(), libro);
-
 		guardarEstanteria(libro);
 
 		return true;
 	}
 
-	public boolean guardarEstanteria(Libro libro) {
-		return almacen.almacena(libro);
+	public void guardarEstanteria(Libro libro) {
+
+		try {
+			callerLibreria.insertarLibro(libro);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
 	}
-	
 
 	public void cambiarEstadoLibro(String isbn) {
 		leerEstanteria();
 		hashMapLibros.get(isbn).setBorrado(!hashMapLibros.get(isbn).isBorrado());
-		almacen.actualizarFichero(hashMapLibros);
-
+		try {
+			callerLibreria.actualizarLibro(hashMapLibros.get(isbn));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
-	@Override
 	public boolean borrarLibro(String isbn) {
 		leerEstanteria();
 		hashMapLibros.remove(isbn);
-		almacen.actualizarFichero(hashMapLibros);
-
-
+		try {
+			callerLibreria.borrarLibro(isbn);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return true;
 	}
-	
+
 	public Libro obtenerLibro(String ISBN) {
 		return this.hashMapLibros.get(ISBN);
 	}
-	
 
 	public Libro getLibro(int index) {
 		String ISBN = ISBNconcreto(index);
@@ -83,7 +85,7 @@ public class Estanteria implements Estanterizable {
 		Set<String> grupo = this.hashMapLibros.keySet();
 		Object[] array = grupo.toArray();
 		String ISBN = (String) array[index];
-
+		
 		return ISBN;
 	}
 
@@ -91,14 +93,13 @@ public class Estanteria implements Estanterizable {
 		return hashMapLibros;
 	}
 
-	@Override
-	public Libro buscarLibro(Integer index) {
-		// TODO Auto-generated method stub
-		return null;
+	public void actualizarInfoLibros(Libro libro) {
+		try {
+			callerLibreria.actualizarLibro(libro);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }
-
-
-
-

@@ -2,15 +2,16 @@ package modelo;
 
 import java.io.Serializable;
 
-public class Libro implements Serializable {
+public class Libro {
 
-	private String ISBN, titulo, autor, editorial, formato, estado, tema;
+	private String ISBN, titulo, autor, editorial, formato, estado;
 	private Float Precio;
 	private int cantidad;
 	private boolean borrado;
+	private Tema tema;
 
 	public Libro(String ISBN, String titulo, String autor, String editorial, int cantidad, Float precio, String formato,
-			String estado, String tema) {
+			String estado, Tema tema) {
 		super();
 		assert ISBN.isEmpty() || titulo.isEmpty() || editorial.isEmpty();
 		this.ISBN = ISBN;
@@ -25,6 +26,25 @@ public class Libro implements Serializable {
 		this.cantidad = cantidad;
 
 	}
+	
+	
+
+	public Libro(String iSBN, String titulo, String autor, String editorial, int cantidad, Float precio,
+			String formato, String estado, boolean borrado, Tema tema) {
+		super();
+		ISBN = iSBN;
+		this.titulo = titulo;
+		this.autor = autor;
+		this.editorial = editorial;
+		this.formato = formato;
+		this.estado = estado;
+		Precio = precio;
+		this.cantidad = cantidad;
+		this.borrado = borrado;
+		this.tema = tema;
+	}
+
+
 
 	public String getFormato() {
 		return formato;
@@ -66,7 +86,7 @@ public class Libro implements Serializable {
 		return cantidad;
 	}
 
-	public String getTema() {
+	public Tema getTema() {
 		return tema;
 	}
 
@@ -84,6 +104,24 @@ public class Libro implements Serializable {
 
 	public void comprobarISBNExistente(String iSBN) {
 		this.ISBN = iSBN;
+	}
+
+	public int getFormatoEnum() {
+		for (Formato formato: Formato.values()) {
+			if(formato.getNombre().equals(this.formato)) {
+				return formato.getId();
+			}
+		}
+		return 0;
+	}
+
+	public int getEstadoEnum() {
+		for (Estado estado: Estado.values()) {
+			if(estado.getNombre().equals(this.estado)) {
+				return estado.getId();
+			}
+		}
+		return 0;
 	}
 
 	@Override

@@ -3,6 +3,7 @@ package vista;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
+import java.util.Iterator;
 
 import javax.swing.ButtonGroup;
 import javax.swing.GroupLayout;
@@ -23,6 +24,8 @@ import javax.swing.border.LineBorder;
 
 import modelo.IparaUI;
 import modelo.Iview;
+import modelo.Tema;
+
 import javax.swing.border.EtchedBorder;
 
 public class PanelGestionLibreria extends JPanel implements Iview {
@@ -147,11 +150,13 @@ public class PanelGestionLibreria extends JPanel implements Iview {
 		textFieldCantidad.setColumns(10);
 		
 		comboBoxTema = new JComboBox();
-		comboBoxTema.addItem("");
-		comboBoxTema.addItem("Amor");
-		comboBoxTema.addItem("Acción");
-		comboBoxTema.addItem("Terror");
-		comboBoxTema.addItem("Técnico");
+		for (Tema tema: Tema.values()) {
+			comboBoxTema.addItem(tema);
+		}
+//		comboBoxTema.addItem("Amor");
+//		comboBoxTema.addItem("Acción");
+//		comboBoxTema.addItem("Terror");
+//		comboBoxTema.addItem("Técnico");
 		
 		
 		
@@ -508,6 +513,9 @@ public class PanelGestionLibreria extends JPanel implements Iview {
 
 	public JTable getTablaLibros() {
 		return tablaLibros;
+	}
+	public int obtenerFilaSelecionada() {
+		return tablaLibros.getSelectedRow();
 	}
 
 	public JButton getBtnGuardar() {

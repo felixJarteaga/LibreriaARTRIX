@@ -19,11 +19,14 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
+
+
 import modelo.CuadroDialogos;
 import modelo.Estanteria;
 import modelo.IparaUI;
 import modelo.Iview;
 import modelo.Libro;
+import modelo.Tema;
 import utilies.Validaciones;
 import vista.PanelGestionLibreria;
 import vista.PanelPapelera;
@@ -79,7 +82,8 @@ public class ParaUIGestionLibreria implements IparaUI {
 								Float.valueOf(gestion.getTextFieldPrecio().getText()),
 								getTextBtnSeleccionado(gestion.getGrupoFormato()),
 								getTextBtnSeleccionado(gestion.getGrupoEstado()),
-								String.valueOf(gestion.getComboBoxTema().getSelectedItem())));
+								(Tema)gestion.getComboBoxTema().getSelectedItem()
+								));
 
 						rellenarTabla(gestion.getTablaLibros(), false);
 						rellenarTablaAlmacen(gestion.getTableFichero(), false);
@@ -150,6 +154,11 @@ public class ParaUIGestionLibreria implements IparaUI {
 							&& Integer.valueOf(txtnumeroLibrosModificar.getText()) >= 0) {
 						libreria.obtenerLibro(libreria.ISBNconcreto(gestion.getTablaLibros().getSelectedRow()))
 								.restarCantidad(Integer.valueOf(txtnumeroLibrosModificar.getText()));
+						
+						int x = gestion.obtenerFilaSelecionada();
+						 libreria.actualizarInfoLibros(libreria.obtenerLibro(libreria.ISBNconcreto(x)));
+						 
+						
 						if (Integer.valueOf(txtnumeroLibrosModificar.getText()) > (libreria
 								.obtenerLibro(libreria.ISBNconcreto(gestion.getTablaLibros().getSelectedRow())))
 										.getCantidad()
@@ -206,15 +215,19 @@ public class ParaUIGestionLibreria implements IparaUI {
 						JOptionPane.CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
 				if (!txtnumeroLibrosModificar.getText().isEmpty()
 						&& Integer.valueOf(txtnumeroLibrosModificar.getText()) > 0) {
+					
 					libreria.obtenerLibro(libreria.ISBNconcreto(gestion.getTablaLibros().getSelectedRow()))
 							.sumarCantidad(Integer.valueOf(txtnumeroLibrosModificar.getText()));
+					 int x = gestion.obtenerFilaSelecionada();
+					 libreria.actualizarInfoLibros(libreria.obtenerLibro(libreria.ISBNconcreto(x)));
+					 
 					rellenarTabla(gestion.getTablaLibros(), false);
 					rellenarTablaAlmacen(gestion.getTableFichero(), false);
+					
 					JOptionPane.showMessageDialog(null, "Unidades añadidas");
 				} else if (Integer.valueOf(txtnumeroLibrosModificar.getText()) < 0) {
 					JOptionPane.showMessageDialog(null, "Solo acepta añadir Unidades Positivas");
 				}
-
 			}
 		});
 
@@ -223,7 +236,7 @@ public class ParaUIGestionLibreria implements IparaUI {
 
 				libreria.cambiarEstadoLibro((String) papelera.getTablaPapelera()
 						.getValueAt(papelera.getTablaPapelera().getSelectedRow(), 0));
-
+//				libreria.actualizarInfoLibros(libreria.obtenerLibro(libreria.ISBNconcreto(gestion.getTablaLibros().getSelectedRow())));
 				rellenarTabla(papelera.getTablaPapelera(), true);
 				rellenarTabla(gestion.getTablaLibros(), false);
 				rellenarTablaAlmacen(gestion.getTableFichero(), false);
@@ -261,7 +274,7 @@ public class ParaUIGestionLibreria implements IparaUI {
 				filasTabla[i][1] = entry.getValue().getTitulo();
 				filasTabla[i][2] = entry.getValue().getAutor();
 				filasTabla[i][3] = entry.getValue().getEditorial();
-				filasTabla[i][4] = entry.getValue().getTema();
+				filasTabla[i][4] = entry.getValue().getTema().getNombre();
 				filasTabla[i][5] = String.valueOf(entry.getValue().getCantidad());
 				filasTabla[i][6] = String.valueOf(entry.getValue().getPrecio());
 				filasTabla[i][7] = entry.getValue().getFormato();
